@@ -26,7 +26,9 @@ defmodule SimpleServer.MixProject do
       {:plug, "~> 1.8.3"},
       {:cowboy, "~> 2.7.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:telemetry, "~> 0.4.0"}
+      {:telemetry, "~> 0.4.0"},
+      {:telemetry_metrics_prometheus, "~> 0.3"},
+      {:telemetry_poller, "~> 0.4"}
     ]
   end
 end

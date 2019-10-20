@@ -6,6 +6,7 @@ defmodule Route.Health do
   plug :dispatch
 
   get "/check" do
+    :telemetry.execute([:simple_server, :app, :checked_at], %{time: :os.system_time(:milli_seconds)}, %{})
     conn
       |> put_resp_content_type("application/json")
       |> send_resp(200, Poison.encode!(%{"response" => NaiveDateTime.utc_now}))

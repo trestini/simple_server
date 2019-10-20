@@ -8,12 +8,13 @@ defmodule SimpleServer.Application do
 
   def start(_type, _args) do
 
+    Monitor.setup_custom_metrics()
+
     info "Starting supervised application #{Application.get_env(:simple_server, :name)}"
 
-    Monitor.setup()
-
     children = [
-      SimpleServer.Router
+      SimpleServer.Router,
+      Monitor.setup_prometheus_metrics()
     ]
 
     opts = [strategy: :one_for_one, name: SimpleServer.Supervisor]
