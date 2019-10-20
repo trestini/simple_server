@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+# ===================================================================
+  simple_server:
+    container_name: simple_server
+    hostname: simple_server
+    image: simple_server:latest
+
+    build:
+      context: .
+      dockerfile: .docker/development.dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "4001:4001"
+    working_dir: /app
+    environment:
+      - ENV=dev
+    networks:
+      - app-private-network
+
+    entrypoint: mix run --no-halt
+# ===================================================================
+networks:
+  app-private-network:
+    driver: bridge
+
