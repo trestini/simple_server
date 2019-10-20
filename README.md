@@ -18,3 +18,8 @@ With Heroku CLI installed:
 * edit `elixir_buildpack.config` with erlang and elixir versions (currently, erlang 22, elixir 1.9.2)
 * create a heroku's `Procfile` with the content: `web: mix run --no-halt`
 * deploy: `git push heroku master`
+
+## Running on docker
+
+* to run locally using docker compose: `docker-compose up` on root directory
+* to run locally without docker compose, first build the container with `docker build -t simple_server:latest -f .docker/build.dockerfile .`, and then run with `docker run -p <local port>:4001 simple_server`
