@@ -2,7 +2,7 @@ defmodule Route.Health do
   use Plug.Router
 
   plug :match
-  plug Plug.Telemetry, event_prefix: [:simple_server, :plug]
+  plug Plug.Telemetry, event_prefix: [:health, :request]
   plug :dispatch
 
   get "/check" do

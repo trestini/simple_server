@@ -15,9 +15,14 @@ defmodule Monitor do
 
   def setup_custom_metrics do
     events = [
-      [:simple_server, :app, :boot]
+      [:health, :request, :stop]
     ]
-    :telemetry.attach_many("simple_server_app_boot", events, &handle_event/4, nil)
+    :telemetry.attach_many("simple_server_health_request_stop", events, &handle_event/4, nil)
+  end
+
+  def handle_event([:health, :request, :stop], measurements, metadata, _config) do
+    duration = System.convert_time_unit(measurements.duration, :nanosecond, :microsecond)
+    Logger.info "#{metadata.conn.status} [#{metadata.conn.method}] #{metadata.conn.request_path} :: Healthcheck request took #{duration} µs"
   end
 
   def handle_event([:simple_server, :app, :checked_at], measurements, _metadata, _config) do
